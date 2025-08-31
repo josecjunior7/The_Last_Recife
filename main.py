@@ -1,23 +1,14 @@
 import pygame
 import random
-from config import TELA, FPS, LARGURA, ALTURA, BRANCO, AZUL, VERDE, VERMELHO, clock
+from config import *
+from src.entities.player import *
+from src.entities.enemy import *
+from src.scenes.maps import *
 
 # Inicializa pygame
 pygame.init()
 
-# Jogador
-player = pygame.Rect(100, 300, 40, 40)
-velocidade = 5
-oxigenio = 100
 
-# Inimigos (peixes)
-inimigos = [pygame.Rect(random.randint(200, 700), random.randint(50, 550), 50, 30) for _ in range(3)]
-
-# Bolhas (ar)
-bolhas = [pygame.Rect(random.randint(100, 700), random.randint(50, 550), 20, 20) for _ in range(5)]
-
-# Saída (fim da fase)
-saida = pygame.Rect(750, 250, 40, 100)
 
 # Loop principal
 rodando = True
