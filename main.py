@@ -4,11 +4,14 @@ from config import *
 from src.entities.player import *
 from src.entities.enemy import *
 from src.scenes.maps import *
+from src.scenes.menu import menu
+
 
 # Inicializa pygame
 pygame.init()
 
-
+# antes de rodar o jogo, chama o menu
+escolha = menu(TELA, clock)
 
 # Loop principal
 rodando = True
