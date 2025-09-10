@@ -51,6 +51,9 @@ while rodando:
 
     # Colisão com inimigos
     for inimigo in inimigos:
+        for vida in inimigos:
+            if vida -10
+            vida.x -= random.choice ([-10, 10])
         if player.colliderect(inimigo):
             print("Você foi pego por um peixe! Game Over.")
             rodando = False
