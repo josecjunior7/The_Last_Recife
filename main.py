@@ -13,11 +13,22 @@ pygame.init()
 # antes de rodar o jogo, chama o menu
 escolha = menu(TELA, clock)
 
+# Variáveis do jogador
+vida = 100        # Vida do jogador (0 a 100)
+oxigenio = 100    # Oxigênio inicial
+velocidade = 5    # Velocidade de movimento
+
+# Invencibilidade
+INVENCIBILIDADE = 1000  # em milissegundos (1s)
+ultimo_dano = 0         # guarda o tempo do último hit
+
 # Loop principal
 rodando = True
 while rodando:
     clock.tick(FPS)
     TELA.fill(AZUL)
+
+    tempo_atual = pygame.time.get_ticks()  # tempo desde início do jogo (ms)
 
     # Eventos
     for evento in pygame.event.get():
@@ -49,14 +60,16 @@ while rodando:
         if inimigo.right > LARGURA:
             inimigo.right = LARGURA
 
-    # Colisão com inimigos
+    # Colisão com inimigos -> agora tem tempo de invencibilidade
     for inimigo in inimigos:
-        for vida in inimigos:
-            if vida -10
-            vida.x -= random.choice ([-10, 10])
         if player.colliderect(inimigo):
-            print("Você foi pego por um peixe! Game Over.")
-            rodando = False
+            if tempo_atual - ultimo_dano > INVENCIBILIDADE:
+                vida -= 10
+                ultimo_dano = tempo_atual
+                print(f"Você foi atingido! Vida: {vida}")
+                if vida <= 0:
+                    print("Sua vida chegou a zero! Game Over.")
+                    rodando = False
 
     # Colisão com bolhas (recupera ar)
     for bolha in bolhas[:]:
@@ -69,7 +82,7 @@ while rodando:
         print("Parabéns! Você passou de fase.")
         rodando = False
 
-    # Desenhar elementos
+    # --- Desenhar elementos ---
     pygame.draw.rect(TELA, BRANCO, player)          # Jogador
     for inimigo in inimigos:
         pygame.draw.rect(TELA, VERMELHO, inimigo)   # Inimigos
@@ -78,8 +91,12 @@ while rodando:
     pygame.draw.rect(TELA, (255, 215, 0), saida)    # Saída
 
     # Barra de oxigênio
-    pygame.draw.rect(TELA, (0,0,0), (10, 10, 200, 20))
-    pygame.draw.rect(TELA, (0, 255, 255), (10, 10, int(2 * oxigenio), 20))
+    pygame.draw.rect(TELA, (0,0,0), (10, 10, 200, 20))  # Fundo
+    pygame.draw.rect(TELA, (0, 255, 255), (10, 10, int(2 * oxigenio), 20))  # Oxigênio
+
+    # Barra de vida
+    pygame.draw.rect(TELA, (0,0,0), (10, 40, 200, 20))  # Fundo
+    pygame.draw.rect(TELA, (255,0,0), (10, 40, int(2 * vida), 20))  # Vida
 
     pygame.display.update()
 
