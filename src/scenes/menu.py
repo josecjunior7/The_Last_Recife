@@ -4,7 +4,7 @@ from config import *
 
 pygame.init()
 
-fonte_titulo = pygame.font.SysFont("arial", 50, bold=True)
+fonte_titulo = pygame.font.SysFont("fonts/assets/Creepster-Regular.ttf", 50, bold=True)
 fonte_opcoes = pygame.font.SysFont("arial", 30)
 
 def desenhar_texto(tela, texto, fonte, cor, x, y):
