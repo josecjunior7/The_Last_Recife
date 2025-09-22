@@ -4,6 +4,10 @@ from config import *
 
 pygame.init()
 
+# carregando imagens
+background = pygame.image.load("assets/images/Background.png")  # sua imagem
+background = pygame.transform.scale(background, (LARGURA, ALTURA))  # ajusta ao tamanho da tela
+
 fonte_titulo = pygame.font.SysFont("fonts/assets/Creepster-Regular.ttf", 50, bold=True)
 fonte_opcoes = pygame.font.SysFont("arial", 30)
 
@@ -14,7 +18,7 @@ def desenhar_texto(tela, texto, fonte, cor, x, y):
 def menu(tela, clock):
     rodando = True
     while rodando:
-        tela.fill(AZUL)
+        tela.blit(background, (0, 0))
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -25,7 +29,7 @@ def menu(tela, clock):
         clique = pygame.mouse.get_pressed()
 
         # título
-        desenhar_texto(tela, "O Ultimo Recife", fonte_titulo, BRANCO, LARGURA // 2, 80)
+        #desenhar_texto(tela, "O Ultimo Recife", fonte_titulo, BRANCO, LARGURA // 2, 80)
 
         # botão jogar
         jogar_rect = pygame.Rect(500, 250, 200, 50)
