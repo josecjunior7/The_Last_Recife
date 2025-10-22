@@ -9,7 +9,7 @@ from src.scenes.menu import menu
 
 # Inicializa pygame
 pygame.init()
-
+mapa = pygame.image.load("assets/images/mapa.png").convert()
 # antes de rodar o jogo, chama o menu
 escolha = menu(TELA, clock)
 
@@ -26,8 +26,8 @@ ultimo_dano = 0         # guarda o tempo do último hit
 rodando = True
 while rodando:
     clock.tick(FPS)
-    TELA.fill(AZUL)
-
+    TELA.blit(mapa, (0, 0))
+    
     tempo_atual = pygame.time.get_ticks()  # tempo desde início do jogo (ms)
 
     # Eventos
