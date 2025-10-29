@@ -8,8 +8,8 @@ pygame.init()
 background = pygame.image.load("assets/images/Background.png")  # sua imagem
 background = pygame.transform.scale(background, (LARGURA, ALTURA))  # ajusta ao tamanho da tela
 
-fonte_titulo = pygame.font.SysFont("fonts/assets/Creepster-Regular.ttf", 50, bold=True)
-fonte_opcoes = pygame.font.SysFont("arial", 30)
+fonte_titulo = pygame.font.SysFont("fonts/assets/CinzelDecorative-Bold.ttf", 90, bold=True)
+fonte_opcoes = pygame.font.SysFont("fonts/assets/CinzelDecorative-Bold.ttf", 55)
 
 def desenhar_texto(tela, texto, fonte, cor, x, y):
     render = fonte.render(texto, True, cor)
@@ -32,7 +32,7 @@ def menu(tela, clock):
         #desenhar_texto(tela, "O Ultimo Recife", fonte_titulo, BRANCO, LARGURA // 2, 80)
 
         # botão jogar
-        jogar_rect = pygame.Rect(490, 522, 200, 50) # (1º Largura, 2º Altura)
+        jogar_rect = pygame.Rect(530, 522, 200, 50) # (1º Largura, 2º Altura)
 
         # cria uma surface com transparência
         jogar_surface = pygame.Surface((jogar_rect.width, jogar_rect.height), pygame.SRCALPHA)
@@ -52,7 +52,7 @@ def menu(tela, clock):
 
 
         # botão Sair
-        sair_rect = pygame.Rect(490, 622, 200, 50) # (1º Largura, 2º Altura)
+        sair_rect = pygame.Rect(530, 622, 200, 50) # (1º Largura, 2º Altura)
 
         # cria uma surface com transparência
         sair_surface = pygame.Surface((sair_rect.width, sair_rect.height), pygame.SRCALPHA)

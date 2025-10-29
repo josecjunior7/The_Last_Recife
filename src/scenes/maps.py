@@ -7,7 +7,7 @@ class MapSystem:
         self.maps = {
             "mapa1": {
                 "name": "Base Subaquática",
-                "background": "assets/images/mapa.png",
+                "background": "assets/images/mapas/mapa.png",
                 "player_start": (100, 300),
                 "portas": [
                     {
@@ -36,7 +36,7 @@ class MapSystem:
             },
             "mapa2": {
                 "name": "Caverna Submersa",
-                "background": "assets/images/mapa2.png",
+                "background": "assets/images/mapas/mapa2.png",
                 "player_start": (100, 100),
                 "portas": [
                     {
@@ -65,7 +65,7 @@ class MapSystem:
             },
             "mapa3": {
                 "name": "Recife de Coral",
-                "background": "assets/images/mapa3.png",
+                "background": "assets/images/mapas/mapa3.png",
                 "player_start": (400, 300),
                 "portas": [
                     {
