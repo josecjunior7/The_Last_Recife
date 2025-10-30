@@ -1,12 +1,13 @@
 import pygame
 from config import *
 import os
+from src.entities.enemy import Enemy
 
 class MapSystem:
     def __init__(self):
         self.maps = {
             "mapa1": {
-                "name": "Base Subaquática",
+                "name": "Old Recife",
                 "background": "assets/images/mapas/mapa.png",
                 "player_start": (100, 300),
                 "portas": [
@@ -24,8 +25,8 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    pygame.Rect(300, 200, 50, 50),
-                    pygame.Rect(500, 400, 50, 50)
+                    {"x": 300, "y": 200},
+                    {"x": 500, "y": 400}
                 ],
                 "bolhas": [
                     pygame.Rect(200, 100, 30, 30),
@@ -53,9 +54,9 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    pygame.Rect(200, 300, 50, 50),
-                    pygame.Rect(450, 200, 50, 50),
-                    pygame.Rect(600, 100, 50, 50)
+                    {"x": 200, "y": 300},
+                    {"x": 450, "y": 200},
+                    {"x": 600, "y": 100}
                 ],
                 "bolhas": [
                     pygame.Rect(150, 400, 30, 30),
@@ -63,6 +64,7 @@ class MapSystem:
                 ],
                 "saida": pygame.Rect(700, 500, 80, 80)
             },
+            # ... (os outros mapas permanecem iguais)
             "mapa3": {
                 "name": "Recife de Coral",
                 "background": "assets/images/mapas/mapa3.png",
@@ -82,10 +84,10 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    pygame.Rect(100, 200, 50, 50),
-                    pygame.Rect(300, 400, 50, 50),
-                    pygame.Rect(600, 300, 50, 50),
-                    pygame.Rect(200, 100, 50, 50)
+                    {"x": 100, "y": 200},
+                    {"x": 300, "y": 400},
+                    {"x": 600, "y": 300},
+                    {"x": 200, "y": 100}
                 ],
                 "bolhas": [
                     pygame.Rect(250, 250, 30, 30),
@@ -114,10 +116,10 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    pygame.Rect(100, 200, 50, 50),
-                    pygame.Rect(300, 400, 50, 50),
-                    pygame.Rect(600, 300, 50, 50),
-                    pygame.Rect(200, 100, 50, 50)
+                    {"x": 100, "y": 200},
+                    {"x": 300, "y": 400},
+                    {"x": 600, "y": 300},
+                    {"x": 200, "y": 100}
                 ],
                 "bolhas": [
                     pygame.Rect(250, 250, 30, 30),
@@ -146,10 +148,10 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    pygame.Rect(100, 200, 50, 50),
-                    pygame.Rect(300, 400, 50, 50),
-                    pygame.Rect(600, 300, 50, 50),
-                    pygame.Rect(200, 100, 50, 50)
+                    {"x": 100, "y": 200},
+                    {"x": 300, "y": 400},
+                    {"x": 600, "y": 300},
+                    {"x": 200, "y": 100}
                 ],
                 "bolhas": [
                     pygame.Rect(250, 250, 30, 30),
@@ -178,10 +180,10 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    pygame.Rect(100, 200, 50, 50),
-                    pygame.Rect(300, 400, 50, 50),
-                    pygame.Rect(600, 300, 50, 50),
-                    pygame.Rect(200, 100, 50, 50)
+                    {"x": 100, "y": 200},
+                    {"x": 300, "y": 400},
+                    {"x": 600, "y": 300},
+                    {"x": 200, "y": 100}
                 ],
                 "bolhas": [
                     pygame.Rect(250, 250, 30, 30),
@@ -196,7 +198,6 @@ class MapSystem:
         self.mapa_atual = "mapa1"
         self.backgrounds = {}
 
-    # 🔧 Agora o método está dentro da classe
     def carregar_backgrounds(self):
         """Carrega todas as imagens de background"""
         caminho_base = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))  # volta até a raiz
@@ -216,6 +217,62 @@ class MapSystem:
                 else:
                     surf.fill((0, 100, 0))  # Verde escuro
                 self.backgrounds[mapa_id] = surf
+
+    def criar_inimigos_para_mapa(self, mapa_id):
+        """Cria instâncias de Enemy para um mapa específico"""
+        inimigos_group = pygame.sprite.Group()
+        if mapa_id in self.maps:
+            # Defina áreas diferentes baseadas no mapa
+            areas_por_mapa = {
+                "mapa1": [
+                    {"area_largura": 150, "area_altura": 100},
+                    {"area_largura": 200, "area_altura": 120}
+                ],
+                "mapa2": [
+                    {"area_largura": 180, "area_altura": 150},
+                    {"area_largura": 160, "area_altura": 100},
+                    {"area_largura": 200, "area_altura": 120}
+                ],
+                "mapa3": [
+                    {"area_largura": 150, "area_altura": 100},
+                    {"area_largura": 200, "area_altura": 120},
+                    {"area_largura": 180, "area_altura": 150},
+                    {"area_largura": 160, "area_altura": 100}
+                ],
+                "mapa4": [
+                    {"area_largura": 150, "area_altura": 100},
+                    {"area_largura": 200, "area_altura": 120},
+                    {"area_largura": 180, "area_altura": 150},
+                    {"area_largura": 160, "area_altura": 100}
+                ],
+                "mapa5": [
+                    {"area_largura": 150, "area_altura": 100},
+                    {"area_largura": 200, "area_altura": 120},
+                    {"area_largura": 180, "area_altura": 150},
+                    {"area_largura": 160, "area_altura": 100}
+                ],
+                "mapa6": [
+                    {"area_largura": 150, "area_altura": 100},
+                    {"area_largura": 200, "area_altura": 120},
+                    {"area_largura": 180, "area_altura": 150},
+                    {"area_largura": 160, "area_altura": 100}
+                ]
+            }
+            
+            areas = areas_por_mapa.get(mapa_id, [{"area_largura": 200, "area_altura": 150}])
+            
+            for i, inimigo_data in enumerate(self.maps[mapa_id]["inimigos"]):
+                # Usar área específica ou padrão
+                area = areas[i] if i < len(areas) else {"area_largura": 200, "area_altura": 150}
+                
+                enemy = Enemy(
+                    inimigo_data["x"], 
+                    inimigo_data["y"],
+                    area_largura=area["area_largura"],
+                    area_altura=area["area_altura"]
+                )
+                inimigos_group.add(enemy)
+        return inimigos_group
 
     def trocar_mapa(self, novo_mapa, player):
         """Troca para um novo mapa e reposiciona o jogador"""
