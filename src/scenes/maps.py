@@ -100,7 +100,7 @@ class MapSystem:
             "mapa4": {
                 "name": "Jardim Submarino",
                 "background": "assets/images/mapas/mapa4.png",
-                "player_start": (400, 300),
+                "player_start": (800, 300),
                 "portas": [
                     {
                         "rect": pygame.Rect(100, 500, 80, 100),
