@@ -7,7 +7,7 @@ class MapSystem:
         self.maps = {
             "mapa1": {
                 "name": "Base Subaquática",
-                "background": "assets/images/mapas/mapa.png",
+                "background": "assets/images/mapas/Mapa1.png",
                 "player_start": (100, 300),
                 "portas": [
                     {
@@ -70,13 +70,109 @@ class MapSystem:
                 "portas": [
                     {
                         "rect": pygame.Rect(100, 500, 80, 100),
-                        "destination": "mapa1",
+                        "destination": "mapa4",
                         "color": None,
                         "ativa": True
                     },
                     {
                         "rect": pygame.Rect(500, 100, 80, 100),
                         "destination": "mapa2",
+                        "color": None,
+                        "ativa": True
+                    }
+                ],
+                "inimigos": [
+                    pygame.Rect(100, 200, 50, 50),
+                    pygame.Rect(300, 400, 50, 50),
+                    pygame.Rect(600, 300, 50, 50),
+                    pygame.Rect(200, 100, 50, 50)
+                ],
+                "bolhas": [
+                    pygame.Rect(250, 250, 30, 30),
+                    pygame.Rect(450, 450, 30, 30),
+                    pygame.Rect(650, 150, 30, 30),
+                    pygame.Rect(150, 350, 30, 30)
+                ],
+                "saida": pygame.Rect(50, 50, 100, 80)
+            },
+            "mapa4": {
+                "name": "Mapa 4",
+                "background": "assets/images/mapas/mapa4.png",
+                "player_start": (400, 300),
+                "portas": [
+                    {
+                        "rect": pygame.Rect(100, 500, 80, 100),
+                        "destination": "mapa5",
+                        "color": None,
+                        "ativa": True
+                    },
+                    {
+                        "rect": pygame.Rect(500, 100, 80, 100),
+                        "destination": "mapa1",
+                        "color": None,
+                        "ativa": True
+                    }
+                ],
+                "inimigos": [
+                    pygame.Rect(100, 200, 50, 50),
+                    pygame.Rect(300, 400, 50, 50),
+                    pygame.Rect(600, 300, 50, 50),
+                    pygame.Rect(200, 100, 50, 50)
+                ],
+                "bolhas": [
+                    pygame.Rect(250, 250, 30, 30),
+                    pygame.Rect(450, 450, 30, 30),
+                    pygame.Rect(650, 150, 30, 30),
+                    pygame.Rect(150, 350, 30, 30)
+                ],
+                "saida": pygame.Rect(50, 50, 100, 80)
+            },
+            "mapa5": {
+                "name": "Mapa 5",
+                "background": "assets/images/mapas/Mapa5.png",
+                "player_start": (400, 300),
+                "portas": [
+                    {
+                        "rect": pygame.Rect(100, 500, 80, 100),
+                        "destination": "mapa6",
+                        "color": None,
+                        "ativa": True
+                    },
+                    {
+                        "rect": pygame.Rect(500, 100, 80, 100),
+                        "destination": "mapa4",
+                        "color": None,
+                        "ativa": True
+                    }
+                ],
+                "inimigos": [
+                    pygame.Rect(100, 200, 50, 50),
+                    pygame.Rect(300, 400, 50, 50),
+                    pygame.Rect(600, 300, 50, 50),
+                    pygame.Rect(200, 100, 50, 50)
+                ],
+                "bolhas": [
+                    pygame.Rect(250, 250, 30, 30),
+                    pygame.Rect(450, 450, 30, 30),
+                    pygame.Rect(650, 150, 30, 30),
+                    pygame.Rect(150, 350, 30, 30)
+                ],
+                "saida": pygame.Rect(50, 50, 100, 80)
+            },
+            "mapa6": {
+                "name": "Mapa 6",
+                "background": "assets/images/mapas/Mapa6.png",
+                "player_start": (400, 300),
+                "portas": [
+                    {
+                        "rect": pygame.Rect(100, 500, 80, 100),
+                        "destination": "mapa1",
+                        "color": None,
+                        "ativa": True
+                    },
+                    {
+                        "rect": pygame.Rect(500, 100, 80, 100),
+                        "destination": "mapa5",
                         "color": None,
                         "ativa": True
                     }
@@ -151,3 +247,4 @@ class MapSystem:
                 font = pygame.font.SysFont(None, 24)
                 text = font.render("Porta", True, BRANCO)
                 tela.blit(text, (porta["rect"].x + 10, porta["rect"].y + 40))
+
