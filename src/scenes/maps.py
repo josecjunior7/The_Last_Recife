@@ -96,7 +96,7 @@ class MapSystem:
                 "saida": pygame.Rect(50, 50, 100, 80)
             },
             "mapa4": {
-                "name": "Mapa 4",
+                "name": "Jardim Submarino",
                 "background": "assets/images/mapas/mapa4.png",
                 "player_start": (400, 300),
                 "portas": [
@@ -128,7 +128,7 @@ class MapSystem:
                 "saida": pygame.Rect(50, 50, 100, 80)
             },
             "mapa5": {
-                "name": "Mapa 5",
+                "name": "Sala de Máquinas Submersa",
                 "background": "assets/images/mapas/Mapa5.png",
                 "player_start": (400, 300),
                 "portas": [
@@ -160,7 +160,7 @@ class MapSystem:
                 "saida": pygame.Rect(50, 50, 100, 80)
             },
             "mapa6": {
-                "name": "Mapa 6",
+                "name": "Sala do rei",
                 "background": "assets/images/mapas/Mapa6.png",
                 "player_start": (400, 300),
                 "portas": [
@@ -247,4 +247,3 @@ class MapSystem:
                 font = pygame.font.SysFont(None, 24)
                 text = font.render("Porta", True, BRANCO)
                 tela.blit(text, (porta["rect"].x + 10, porta["rect"].y + 40))
-
