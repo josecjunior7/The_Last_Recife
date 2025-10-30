@@ -44,7 +44,7 @@ class MapSystem:
                         "rect": pygame.Rect(50, 250, 80, 100),
                         "destination": "mapa1",
                         "color": None,
-                        "ativa": True
+                        "ativa": False
                     },
                     {
                         "rect": pygame.Rect(650, 400, 80, 100),
@@ -64,7 +64,7 @@ class MapSystem:
                 ],
                 "saida": pygame.Rect(700, 500, 80, 80)
             },
-            # ... (os outros mapas permanecem iguais)
+
             "mapa3": {
                 "name": "Recife de Coral",
                 "background": "assets/images/mapas/mapa3.png",
@@ -80,7 +80,7 @@ class MapSystem:
                         "rect": pygame.Rect(500, 100, 80, 100),
                         "destination": "mapa2",
                         "color": None,
-                        "ativa": True
+                        "ativa": False
                     }
                 ],
                 "inimigos": [
@@ -112,7 +112,7 @@ class MapSystem:
                         "rect": pygame.Rect(500, 100, 80, 100),
                         "destination": "mapa1",
                         "color": None,
-                        "ativa": True
+                        "ativa": False
                     }
                 ],
                 "inimigos": [
@@ -144,7 +144,7 @@ class MapSystem:
                         "rect": pygame.Rect(500, 100, 80, 100),
                         "destination": "mapa4",
                         "color": None,
-                        "ativa": True
+                        "ativa": False
                     }
                 ],
                 "inimigos": [
