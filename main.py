@@ -16,7 +16,7 @@ pygame.init()
 map_system = MapSystem()
 map_system.carregar_backgrounds()
 
-# Menu inicial
+# Chama o menu (agora funcional)
 escolha = menu(TELA, clock)
 
 # Variáveis do jogador
