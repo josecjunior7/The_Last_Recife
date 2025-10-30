@@ -7,7 +7,7 @@ class MapSystem:
         self.maps = {
             "mapa1": {
                 "name": "Base Subaquática",
-                "background": "assets/images/mapas/Mapa1.png",
+                "background": "assets/images/mapas/mapa.png",
                 "player_start": (100, 300),
                 "portas": [
                     {
@@ -129,7 +129,7 @@ class MapSystem:
             },
             "mapa5": {
                 "name": "Sala de Máquinas Submersa",
-                "background": "assets/images/mapas/Mapa5.png",
+                "background": "assets/images/mapas/mapa5.png",
                 "player_start": (400, 300),
                 "portas": [
                     {
@@ -161,7 +161,7 @@ class MapSystem:
             },
             "mapa6": {
                 "name": "Sala do rei",
-                "background": "assets/images/mapas/Mapa6.png",
+                "background": "assets/images/mapas/mapa6.png",
                 "player_start": (400, 300),
                 "portas": [
                     {
