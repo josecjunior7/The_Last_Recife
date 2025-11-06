@@ -103,7 +103,7 @@ class MapSystem:
                 "player_start": (800, 300),
                 "portas": [
                     {
-                        "rect": pygame.Rect(900, 600, 80, 100),
+                        "rect": pygame.Rect(900, 400, 80, 100),
                         "destination": "mapa5",
                         "color": None,
                         "ativa": True
@@ -135,7 +135,7 @@ class MapSystem:
                 "player_start": (400, 300),
                 "portas": [
                     {
-                        "rect": pygame.Rect(100, 500, 80, 100),
+                        "rect": pygame.Rect(700, 500, 80, 100),
                         "destination": "mapa6",
                         "color": None,
                         "ativa": True
