@@ -14,7 +14,7 @@ class MapSystem:
                     {
                         "rect": pygame.Rect(578, 38, 80, 100),
                         "destination": "mapa2",
-                        "color": MARROM,
+                        "color": CIANO,
                         "ativa": True
                     },
                     {
@@ -77,7 +77,7 @@ class MapSystem:
                         "ativa": True
                     },
                     {
-                        "rect": pygame.Rect(500, 100, 80, 100),
+                        "rect": pygame.Rect(550, 550, 80, 100),
                         "destination": "mapa2",
                         "color": None,
                         "ativa": False
