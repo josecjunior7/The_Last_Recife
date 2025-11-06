@@ -47,7 +47,7 @@ class MapSystem:
                         "ativa": False
                     },
                     {
-                        "rect": pygame.Rect(350, 550, 100, 50),
+                        "rect": pygame.Rect(450, 600, 100, 50),
                         "destination": "mapa3",
                         "color": None,
                         "ativa": True
@@ -62,7 +62,7 @@ class MapSystem:
                     pygame.Rect(150, 400, 30, 30),
                     pygame.Rect(300, 150, 30, 30)
                 ],
-                "saida": pygame.Rect(200, 200, 120, 120)
+                "saida": pygame.Rect(620, 520, 100, 80)
             },
 
             "mapa3": {
