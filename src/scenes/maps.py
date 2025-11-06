@@ -18,7 +18,7 @@ class MapSystem:
                         "ativa": True
                     },
                     {
-                        "rect": pygame.Rect(50, 150, 80, 100), 
+                        "rect": pygame.Rect(600, 150, 80, 100), 
                         "destination": "mapa3",
                         "color": CIANO,
                         "ativa": False
@@ -33,7 +33,7 @@ class MapSystem:
                     pygame.Rect(400, 300, 30, 30),
                     pygame.Rect(600, 500, 30, 30)
                 ],
-                "saida": pygame.Rect(350, 500, 100, 80)
+                "saida": pygame.Rect(450, 100, 100, 80)
             },
             "mapa2": {
                 "name": "Caverna Submersa",
