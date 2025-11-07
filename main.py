@@ -60,7 +60,7 @@ while rodando:
     enemy_group.update(LARGURA, ALTURA)
 
     # Diminuir oxigênio
-    oxigenio -= 0.05
+    oxigenio -= 0.010
     if oxigenio <= 0:
         print("Você ficou sem ar! Game Over.")
         rodando = False
@@ -101,7 +101,7 @@ while rodando:
 
     # Bolhas
     for bolha in mapa_atual_data["bolhas"]:
-        pygame.draw.circle(TELA, VERDE, bolha.center, bolha.width // 2)
+        pygame.draw.circle(TELA, VERDE, bolha.center, bolha.width // 3)
 
     # Portas
     map_system.desenhar_portas(TELA)
