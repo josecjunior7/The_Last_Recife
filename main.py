@@ -60,7 +60,7 @@ while rodando:
     enemy_group.update(LARGURA, ALTURA)
 
     # Diminuir oxigênio
-    oxigenio -= 0.010
+    oxigenio -= 0.05
     if oxigenio <= 0:
         print("Você ficou sem ar! Game Over.")
         rodando = False

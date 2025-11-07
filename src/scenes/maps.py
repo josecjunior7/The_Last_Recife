@@ -60,7 +60,8 @@ class MapSystem:
                 ],
                 "bolhas": [
                     pygame.Rect(150, 400, 30, 30),
-                    pygame.Rect(300, 150, 30, 30)
+                    pygame.Rect(300, 150, 30, 30),
+                    pygame.Rect(600, 500, 30, 30)
                 ],
                 "saida": pygame.Rect(300, 200, 120, 120)
             },
