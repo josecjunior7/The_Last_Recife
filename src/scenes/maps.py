@@ -25,13 +25,9 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    {"x": 300, "y": 200},
-                    {"x": 300, "y": 200},
-                    {"x": 300, "y": 200},
-                    {"x": 300, "y": 200},
-                    {"x": 300, "y": 200},
-                    {"x": 300, "y": 200},
-                    {"x": 500, "y": 400}
+                    {"x": 300, "y": 200, "tipo": "gyarados"},
+                    {"x": 400, "y": 300, "tipo": "gyarados"},
+                    {"x": 500, "y": 400, "tipo": "gyarados"}
                 ],
                 "bolhas": [
                     pygame.Rect(200, 100, 30, 30),
@@ -59,9 +55,9 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    {"x": 200, "y": 300},
-                    {"x": 450, "y": 200},
-                    {"x": 600, "y": 100}
+                    {"x": 200, "y": 300, "tipo": "elektross"},
+                    {"x": 450, "y": 200, "tipo": "elektross"},
+                    {"x": 600, "y": 100, "tipo": "elektross"}
                 ],
                 "bolhas": [
                     pygame.Rect(150, 400, 30, 30),
@@ -70,7 +66,6 @@ class MapSystem:
                 ],
                 "saida": pygame.Rect(300, 200, 120, 120)
             },
-
             "mapa3": {
                 "name": "Recife de Coral",
                 "background": "assets/images/mapas/mapa3.png",
@@ -90,10 +85,10 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    {"x": 100, "y": 200},
-                    {"x": 300, "y": 400},
-                    {"x": 600, "y": 300},
-                    {"x": 200, "y": 100}
+                    {"x": 100, "y": 200, "tipo": "golisopod"},
+                    {"x": 300, "y": 400, "tipo": "golisopod"},
+                    {"x": 600, "y": 300, "tipo": "golisopod"},
+                    {"x": 200, "y": 100, "tipo": "golisopod"}
                 ],
                 "bolhas": [
                     pygame.Rect(250, 250, 30, 30),
@@ -122,10 +117,10 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    {"x": 100, "y": 200},
-                    {"x": 300, "y": 400},
-                    {"x": 600, "y": 300},
-                    {"x": 200, "y": 100}
+                    {"x": 100, "y": 200, "tipo": "sharpedo"},
+                    {"x": 300, "y": 400, "tipo": "sharpedo"},
+                    {"x": 600, "y": 300, "tipo": "sharpedo"},
+                    {"x": 200, "y": 100, "tipo": "sharpedo"}
                 ],
                 "bolhas": [
                     pygame.Rect(250, 250, 30, 30),
@@ -154,10 +149,10 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    {"x": 100, "y": 200},
-                    {"x": 300, "y": 400},
-                    {"x": 600, "y": 300},
-                    {"x": 200, "y": 100}
+                    {"x": 100, "y": 200, "tipo": "sharpedo"},
+                    {"x": 300, "y": 400, "tipo": "gyarados"},
+                    {"x": 600, "y": 300, "tipo": "elektross"},
+                    {"x": 200, "y": 100, "tipo": "golisopod"}
                 ],
                 "bolhas": [
                     pygame.Rect(250, 250, 30, 30),
@@ -186,10 +181,10 @@ class MapSystem:
                     }
                 ],
                 "inimigos": [
-                    {"x": 100, "y": 200},
-                    {"x": 300, "y": 400},
-                    {"x": 600, "y": 300},
-                    {"x": 200, "y": 100}
+                    {"x": 100, "y": 200, "tipo": "elektross"},
+                    {"x": 300, "y": 400, "tipo": "sharpedo"},
+                    {"x": 600, "y": 300, "tipo": "gyarados"},
+                    {"x": 200, "y": 100, "tipo": "golisopod"}
                 ],
                 "bolhas": [
                     pygame.Rect(250, 250, 30, 30),
@@ -232,7 +227,8 @@ class MapSystem:
             areas_por_mapa = {
                 "mapa1": [
                     {"area_largura": 150, "area_altura": 100},
-                    {"area_largura": 200, "area_altura": 120}
+                    {"area_largura": 200, "area_altura": 120},
+                    {"area_largura": 180, "area_altura": 150}
                 ],
                 "mapa2": [
                     {"area_largura": 180, "area_altura": 150},
@@ -271,9 +267,13 @@ class MapSystem:
                 # Usar área específica ou padrão
                 area = areas[i] if i < len(areas) else {"area_largura": 200, "area_altura": 150}
                 
+                # Pega o tipo do inimigo (padrão é "gyarados" se não especificado)
+                tipo_inimigo = inimigo_data.get("tipo", "gyarados")
+                
                 enemy = Enemy(
                     inimigo_data["x"], 
                     inimigo_data["y"],
+                    tipo=tipo_inimigo,
                     area_largura=area["area_largura"],
                     area_altura=area["area_altura"]
                 )
