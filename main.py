@@ -101,7 +101,7 @@ while rodando:
 
     # Bolhas
     for bolha in mapa_atual_data["bolhas"]:
-        pygame.draw.circle(TELA, VERDE, bolha.center, bolha.width // 2)
+        pygame.draw.circle(TELA, VERDE, bolha.center, bolha.width // 3)
 
     # Portas
     map_system.desenhar_portas(TELA)
