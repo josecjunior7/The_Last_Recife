@@ -44,14 +44,14 @@ class Enemy(pygame.sprite.Sprite):
         return velocidades.get(self.tipo, random.uniform(1.0, 2.0))
 
     def carregar_sprites(self):
-        """Carrega sprites baseados no tipo de inimigo e remove fundo"""
+        """Carrega sprites baseados no tipo de inimigo"""
         try:
             # Define os arquivos de sprite para cada tipo
             sprites_por_tipo = {
                 "gyarados": ["gyaradosSP1.jpeg", "gyaradosSP2.jpeg", "gyaradosSP3.jpeg", "gyaradosSP4.jpeg"],
-                "golisopod": ["golisopodSP1.jpeg", "golisopodSP2.jpeg", "golisopodSP3.jpeg", "golisopodSP4.jpeg"],
-                "elektross": ["elektrossSP1.jpeg", "elektrossSP2.jpeg", "elektrossSP3.jpeg"],
-                "sharpedo": ["sharpedoSP1.jpeg", "sharpedoSP2.jpeg", "sharpedoSP3.jpeg"],
+                "golisopod": ["golisopodSP1.png", "golisopodSP2.png", "golisopodSP3.png", "golisopodSP4.jpeg"],
+                "elektross": ["elektrossSP1.png", "elektrossSP2.png", "elektrossSP3.png"],
+                "sharpedo": ["sharpedoSP1.png", "sharpedoSP2.png", "sharpedoSP3.png"],
             }
             
             # Tenta diferentes caminhos possíveis
@@ -79,22 +79,12 @@ class Enemy(pygame.sprite.Sprite):
                 img_path = os.path.join(caminho_encontrado, nome_arquivo)
                 if os.path.exists(img_path):
                     try:
-                        # Carrega a imagem
-                        img = pygame.image.load(img_path)
-                        
-                        # Converte para formato com alpha (transparência)
-                        img = img.convert_alpha()
-                        
-                        # Remove o fundo baseado na cor
-                        img = self.remover_fundo(img, nome_arquivo)
-                        
+                        img = pygame.image.load(img_path).convert_alpha()
                         # Ajusta o tamanho baseado no tipo
                         tamanho = self.definir_tamanho_por_tipo()
                         img = pygame.transform.scale(img, tamanho)
-                        
                         self.frames.append(img)
-                        print(f"[SUCESSO] Sprite carregado e processado: {img_path}")
-                        
+                        print(f"[SUCESSO] Sprite carregado: {img_path}")
                     except Exception as e:
                         print(f"[ERRO] Falha ao carregar {img_path}: {e}")
                 else:
@@ -107,48 +97,6 @@ class Enemy(pygame.sprite.Sprite):
                 
         except Exception as e:
             print(f"[ERRO] Erro geral no carregamento de sprites: {e}")
-
-    def remover_fundo(self, surface, nome_arquivo):
-        """Remove o fundo da imagem baseado em cores específicas"""
-        # Cria uma cópia da surface para trabalhar
-        result = surface.copy()
-        
-        # Define cores de fundo para remover (preto, branco, e tons de cinza)
-        cores_fundo = [
-            (0, 0, 0),      # Preto
-            (255, 255, 255), # Branco
-            (240, 240, 240), # Branco quase puro
-            (10, 10, 10),    # Preto quase puro
-        ]
-        
-        # Para arquivos JPEG, assumimos que o fundo é preto ou branco
-        if nome_arquivo.lower().endswith('.jpeg') or nome_arquivo.lower().endswith('.jpg'):
-            # Adiciona mais tons para JPEG
-            cores_fundo.extend([
-                (1, 1, 1), (2, 2, 2), (3, 3, 3),  # Pretos muito próximos
-                (254, 254, 254), (253, 253, 253),  # Brancos muito próximos
-            ])
-        
-        # Percorre todos os pixels e torna transparentes os que são da cor de fundo
-        for x in range(result.get_width()):
-            for y in range(result.get_height()):
-                pixel = result.get_at((x, y))
-                # Verifica se o pixel é uma das cores de fundo (ignorando alpha)
-                for cor_fundo in cores_fundo:
-                    if self.pixels_similares(pixel, cor_fundo, tolerancia=10):
-                        result.set_at((x, y), (0, 0, 0, 0))  # Torna totalmente transparente
-                        break
-        
-        return result
-
-    def pixels_similares(self, pixel1, pixel2, tolerancia=10):
-        """Verifica se dois pixels são similares dentro de uma tolerância"""
-        r1, g1, b1, a1 = pixel1
-        r2, g2, b2 = pixel2
-        
-        return (abs(r1 - r2) <= tolerancia and 
-                abs(g1 - g2) <= tolerancia and 
-                abs(b1 - b2) <= tolerancia)
 
     def definir_tamanho_por_tipo(self):
         """Define tamanho do sprite baseado no tipo"""
@@ -176,7 +124,6 @@ class Enemy(pygame.sprite.Sprite):
                 img_path = os.path.join(caminho_base, arquivo)
                 try:
                     img = pygame.image.load(img_path).convert_alpha()
-                    img = self.remover_fundo(img, arquivo)  # Remove fundo também nos genéricos
                     img = pygame.transform.scale(img, (60, 70))
                     self.frames.append(img)
                 except Exception as e:
