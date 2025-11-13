@@ -12,28 +12,33 @@ class MapSystem:
                 "player_start": (100, 300),
                 "portas": [
                     {
-                        "rect": pygame.Rect(1220, 250, 80, 100),
+                        "rect": pygame.Rect(578, 38, 80, 100),
                         "destination": "mapa2",
-                        "color": MARROM,
+                        "color": CIANO,
                         "ativa": True
                     },
                     {
-                        "rect": pygame.Rect(50, 150, 80, 100), 
+                        "rect": pygame.Rect(100, 38, 80, 100), 
                         "destination": "mapa3",
                         "color": CIANO,
                         "ativa": False
                     }
                 ],
                 "inimigos": [
-                    {"x": 300, "y": 200},
-                    {"x": 500, "y": 400}
+                    {"x": 100, "y": 100}, 
+                    {"x": 500, "y": 100},    
+                    {"x": 900, "y": 100},  
+                    {"x": 100, "y": 500},   
+                    {"x": 900, "y": 500}    
+ 
                 ],
                 "bolhas": [
                     pygame.Rect(200, 100, 30, 30),
                     pygame.Rect(400, 300, 30, 30),
-                    pygame.Rect(600, 500, 30, 30)
+                    pygame.Rect(600, 500, 30, 30),
+                    pygame.Rect(800, 700, 30, 30)
                 ],
-                "saida": pygame.Rect(350, 500, 100, 80)
+                "saida": pygame.Rect(450, 100, 100, 80)
             },
             "mapa2": {
                 "name": "Caverna Submersa",
@@ -47,9 +52,9 @@ class MapSystem:
                         "ativa": False
                     },
                     {
-                        "rect": pygame.Rect(450, 600, 100, 50),
+                        "rect": pygame.Rect(578, 650, 100, 50),
                         "destination": "mapa3",
-                        "color": None,
+                        "color": VERDE,
                         "ativa": True
                     }
                 ],
@@ -60,9 +65,10 @@ class MapSystem:
                 ],
                 "bolhas": [
                     pygame.Rect(150, 400, 30, 30),
-                    pygame.Rect(300, 150, 30, 30)
+                    pygame.Rect(300, 150, 30, 30),
+                    pygame.Rect(500, 350, 30, 30)
                 ],
-                "saida": pygame.Rect(620, 520, 100, 80)
+                "saida": pygame.Rect(300, 200, 120, 120)
             },
 
             "mapa3": {
@@ -71,13 +77,13 @@ class MapSystem:
                 "player_start": (400, 300),
                 "portas": [
                     {
-                        "rect": pygame.Rect(100, 500, 80, 100),
+                        "rect": pygame.Rect(578, 300, 80, 100),
                         "destination": "mapa4",
                         "color": None,
                         "ativa": True
                     },
                     {
-                        "rect": pygame.Rect(500, 100, 80, 100),
+                        "rect": pygame.Rect(50, 250, 80, 100),
                         "destination": "mapa2",
                         "color": None,
                         "ativa": False
@@ -103,9 +109,9 @@ class MapSystem:
                 "player_start": (800, 300),
                 "portas": [
                     {
-                        "rect": pygame.Rect(900, 600, 80, 100),
+                        "rect": pygame.Rect(960, 300, 80, 100),
                         "destination": "mapa5",
-                        "color": None,
+                        "color": VERDE,
                         "ativa": True
                     },
                     {
@@ -135,13 +141,13 @@ class MapSystem:
                 "player_start": (400, 300),
                 "portas": [
                     {
-                        "rect": pygame.Rect(100, 500, 80, 100),
+                        "rect": pygame.Rect(1030, 500, 80, 100),
                         "destination": "mapa6",
                         "color": None,
                         "ativa": True
                     },
                     {
-                        "rect": pygame.Rect(500, 100, 80, 100),
+                        "rect": pygame.Rect(800, 300, 80, 100),
                         "destination": "mapa4",
                         "color": None,
                         "ativa": False
@@ -173,7 +179,7 @@ class MapSystem:
                         "ativa": False
                     },
                     {
-                        "rect": pygame.Rect(500, 100, 80, 100),
+                        "rect": pygame.Rect(570, 600, 80, 100),
                         "destination": "mapa5",
                         "color": None,
                         "ativa": True
