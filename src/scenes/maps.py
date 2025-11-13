@@ -29,13 +29,16 @@ class MapSystem:
                      {"x": 500, "y": 400},
                      {"x": 600, "y": 600},
                      {"x": 800, "y": 300},
-                     {"x": 400, "y": 500}
+                     {"x": 400, "y": 500},
+                     {"x": 700, "y": 150}
                 ],
                 "bolhas": [
                     pygame.Rect(200, 100, 30, 30),
                     pygame.Rect(400, 300, 30, 30),
                     pygame.Rect(600, 500, 30, 30),
-                    pygame.Rect(800, 700, 30, 30)
+                    pygame.Rect(700, 600, 30, 30),
+                    pygame.Rect(670, 400, 30, 30),
+                    pygame.Rect(850, 200, 30, 30)
                 ],
                 "saida": pygame.Rect(450, 100, 100, 80)
             },
@@ -60,13 +63,18 @@ class MapSystem:
                 "inimigos": [
                     {"x": 200, "y": 300},
                     {"x": 450, "y": 200},
-                    {"x": 600, "y": 100}
+                    {"x": 600, "y": 100},
+                    {"x": 800, "y": 400},
+                    {"x": 350, "y": 500},
+                    {"x": 550, "y": 600}
+
                 ],
                 "bolhas": [
                     pygame.Rect(150, 400, 30, 30),
                     pygame.Rect(300, 150, 30, 30),
                     pygame.Rect(500, 350, 30, 30),
-                    pygame.Rect(700, 250, 30, 30)
+                    pygame.Rect(700, 250, 30, 30),
+                    pygame.Rect(850, 550, 30, 30)
                 ],
                 "saida": pygame.Rect(300, 200, 120, 120)
             },
@@ -93,13 +101,15 @@ class MapSystem:
                     {"x": 100, "y": 200},
                     {"x": 300, "y": 400},
                     {"x": 600, "y": 300},
-                    {"x": 200, "y": 100}
+                    {"x": 200, "y": 100},
+                    {"x": 500, "y": 500}
                 ],
                 "bolhas": [
                     pygame.Rect(250, 250, 30, 30),
                     pygame.Rect(450, 450, 30, 30),
                     pygame.Rect(650, 150, 30, 30),
-                    pygame.Rect(150, 350, 30, 30)
+                    pygame.Rect(150, 350, 30, 30),
+                    pygame.Rect(800, 400, 30, 30)
                 ],
                 "saida": pygame.Rect(50, 50, 100, 80)
             },
