@@ -24,6 +24,7 @@ class MapSystem:
                         "ativa": False
                     }
                 ],
+                "tipos_inimigos": ["gyarados", "gyarados", "golisopod", "golisopod", "gyarados", "golisopod"],
                 "inimigos": [
                      {"x": 300, "y": 200},
                      {"x": 500, "y": 400},
@@ -40,7 +41,7 @@ class MapSystem:
                     pygame.Rect(670, 400, 30, 30),
                     pygame.Rect(850, 200, 30, 30)
                 ],
-                "saida": pygame.Rect(450, 100, 100, 80)
+                "saida": pygame.Rect(1300, 100, 100, 80)
             },
             "mapa2": {
                 "name": "Caverna Submersa",
@@ -60,6 +61,7 @@ class MapSystem:
                         "ativa": True
                     }
                 ],
+                "tipos_inimigos": ["golisopod", "elektross", "golisopod", "elektross", "golisopod", "elektross"],
                 "inimigos": [
                     {"x": 200, "y": 300},
                     {"x": 450, "y": 200},
@@ -67,7 +69,6 @@ class MapSystem:
                     {"x": 800, "y": 400},
                     {"x": 350, "y": 500},
                     {"x": 550, "y": 600}
-
                 ],
                 "bolhas": [
                     pygame.Rect(150, 400, 30, 30),
@@ -76,9 +77,8 @@ class MapSystem:
                     pygame.Rect(700, 250, 30, 30),
                     pygame.Rect(850, 550, 30, 30)
                 ],
-                "saida": pygame.Rect(300, 200, 120, 120)
+                "saida": pygame.Rect(1400, 200, 120, 120)
             },
-
             "mapa3": {
                 "name": "Recife de Coral",
                 "background": "assets/images/mapas/mapa3.png",
@@ -97,6 +97,7 @@ class MapSystem:
                         "ativa": False
                     }
                 ],
+                "tipos_inimigos": ["gyarados", "elektross", "sharpedo", "golisopod", "elektross"],
                 "inimigos": [
                     {"x": 100, "y": 200},
                     {"x": 300, "y": 400},
@@ -111,7 +112,7 @@ class MapSystem:
                     pygame.Rect(150, 350, 30, 30),
                     pygame.Rect(800, 400, 30, 30)
                 ],
-                "saida": pygame.Rect(50, 50, 100, 80)
+                "saida": pygame.Rect(1500, 50, 100, 80)
             },
             "mapa4": {
                 "name": "Jardim Submarino",
@@ -131,6 +132,7 @@ class MapSystem:
                         "ativa": False
                     }
                 ],
+                "tipos_inimigos": ["sharpedo", "sharpedo", "elektross", "sharpedo"],
                 "inimigos": [
                     {"x": 100, "y": 200},
                     {"x": 300, "y": 400},
@@ -143,7 +145,7 @@ class MapSystem:
                     pygame.Rect(650, 150, 30, 30),
                     pygame.Rect(150, 350, 30, 30)
                 ],
-                "saida": pygame.Rect(50, 50, 100, 80)
+                "saida": pygame.Rect(1500, 50, 100, 80)
             },
             "mapa5": {
                 "name": "Sala de Máquinas Submersa",
@@ -163,6 +165,7 @@ class MapSystem:
                         "ativa": False
                     }
                 ],
+                "tipos_inimigos": ["elektross", "sharpedo", "golisopod", "elektross"],
                 "inimigos": [
                     {"x": 100, "y": 200},
                     {"x": 300, "y": 400},
@@ -175,7 +178,7 @@ class MapSystem:
                     pygame.Rect(650, 150, 30, 30),
                     pygame.Rect(150, 350, 30, 30)
                 ],
-                "saida": pygame.Rect(50, 50, 100, 80)
+                "saida": pygame.Rect(1500, 50, 100, 80)
             },
             "mapa6": {
                 "name": "Sala do rei",
@@ -195,6 +198,7 @@ class MapSystem:
                         "ativa": True
                     }
                 ],
+                "tipos_inimigos": ["sharpedo", "elektross", "golisopod", "gyarados"],
                 "inimigos": [
                     {"x": 100, "y": 200},
                     {"x": 300, "y": 400},
@@ -207,7 +211,7 @@ class MapSystem:
                     pygame.Rect(650, 150, 30, 30),
                     pygame.Rect(150, 350, 30, 30)
                 ],
-                "saida": pygame.Rect(50, 50, 100, 80)
+                "saida": pygame.Rect(1500, 50, 100, 80)
             }
         }
 
@@ -235,9 +239,11 @@ class MapSystem:
                 self.backgrounds[mapa_id] = surf
 
     def criar_inimigos_para_mapa(self, mapa_id):
-        """Cria instâncias de Enemy para um mapa específico"""
+        """Cria instâncias de Enemy para um mapa específico com tipos diferentes"""
         inimigos_group = pygame.sprite.Group()
         if mapa_id in self.maps:
+            mapa_data = self.maps[mapa_id]
+            
             # Defina áreas diferentes baseadas no mapa
             areas_por_mapa = {
                 "mapa1": [
@@ -276,18 +282,26 @@ class MapSystem:
             }
             
             areas = areas_por_mapa.get(mapa_id, [{"area_largura": 200, "area_altura": 150}])
+            tipos_inimigos = mapa_data.get("tipos_inimigos", ["gyarados"])  # Padrão caso não exista
             
-            for i, inimigo_data in enumerate(self.maps[mapa_id]["inimigos"]):
+            for i, inimigo_data in enumerate(mapa_data["inimigos"]):
                 # Usar área específica ou padrão
                 area = areas[i] if i < len(areas) else {"area_largura": 200, "area_altura": 150}
+                
+                # Usar tipo específico ou padrão
+                tipo = tipos_inimigos[i] if i < len(tipos_inimigos) else "gyarados"
                 
                 enemy = Enemy(
                     inimigo_data["x"], 
                     inimigo_data["y"],
+                    tipo=tipo,  # PASSA O TIPO ESPECÍFICO
                     area_largura=area["area_largura"],
                     area_altura=area["area_altura"]
                 )
                 inimigos_group.add(enemy)
+                
+                print(f"✅ Criado inimigo {tipo} na posição ({inimigo_data['x']}, {inimigo_data['y']})")
+                
         return inimigos_group
 
     def trocar_mapa(self, novo_mapa, player):
@@ -297,6 +311,7 @@ class MapSystem:
             start_x, start_y = self.maps[novo_mapa]["player_start"]
             player.x = start_x
             player.y = start_y
+            print(f"🎮 Jogador movido para {novo_mapa} na posição {start_x}, {start_y}")
             return True
         return False
 

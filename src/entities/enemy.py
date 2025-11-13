@@ -48,8 +48,8 @@ class Enemy(pygame.sprite.Sprite):
         try:
             # Define os arquivos de sprite para cada tipo
             sprites_por_tipo = {
-                "gyarados": ["gyaradosSP1.jpeg", "gyaradosSP2.jpeg", "gyaradosSP3.jpeg", "gyaradosSP4.jpeg"],
-                "golisopod": ["golisopodSP1.png", "golisopodSP2.png", "golisopodSP3.png", "golisopodSP4.jpeg"],
+                "gyarados": ["gyaradosSP1.png", "gyaradosSP2.png", "gyaradosSP3.png", ],
+                "golisopod": ["golisopodSP1.png", "golisopodSP2.png", "golisopodSP3.png", "golisopodSP4.png"],
                 "elektross": ["elektrossSP1.png", "elektrossSP2.png", "elektrossSP3.png"],
                 "sharpedo": ["sharpedoSP1.png", "sharpedoSP2.png", "sharpedoSP3.png"],
             }
