@@ -151,7 +151,7 @@ while rodando:
     # Barra de oxigênio
     pygame.draw.rect(TELA, CINZA, (10, 10, 204, 24), 2)  # Borda
     pygame.draw.rect(TELA, PRETO, (12, 12, 200, 20))     # Fundo
-    cor_oxigenio = CIANO if oxigenio > 30 else LARANJA   # Muda cor se estiver baixo
+    cor_oxigenio = CIANO if oxigenio > 30 else VERDE   # Muda cor se estiver baixo
     pygame.draw.rect(TELA, cor_oxigenio, (12, 12, int(2 * oxigenio), 20))
     
     # Texto oxigênio
