@@ -31,7 +31,7 @@ energia_coletada = 0
 energia_total = sum(len(mapa["energias_escuras"]) for mapa in map_system.maps.values())
 
 # Invencibilidade
-INVENCIBILIDADE = 1000
+INVENCIBILIDADE = 3000
 ultimo_dano = 0
 
 # Função para trocar mapa e recriar inimigos
@@ -81,7 +81,7 @@ while rodando:
     enemy_group.update(LARGURA, ALTURA)
 
     # Diminuir oxigênio
-    oxigenio -= 0.05
+    oxigenio -= 0.1
     if oxigenio <= 0:
         print("Você ficou sem ar! Game Over.")
         rodando = False
