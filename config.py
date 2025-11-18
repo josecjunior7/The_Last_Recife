@@ -20,3 +20,5 @@ CIANO = (0, 255, 255)
 MARROM = (139, 69, 19)
 DOURADO = (255, 215, 0)
 CINZA = (128, 128, 128)
+
+ENERGIA_ESCURA = (75, 0, 130)  # Roxo escuro

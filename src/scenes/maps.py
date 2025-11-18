@@ -41,6 +41,12 @@ class MapSystem:
                     pygame.Rect(670, 400, 30, 30),
                     pygame.Rect(850, 200, 30, 30)
                 ],
+                "energias_escuras": [
+                    pygame.Rect(300, 350, 25, 25),
+                    pygame.Rect(550, 250, 25, 25),
+                    pygame.Rect(750, 450, 25, 25),
+                    pygame.Rect(900, 350, 25, 25)
+                ],
                 "saida": pygame.Rect(1300, 100, 100, 80)
             },
             "mapa2": {
@@ -77,6 +83,12 @@ class MapSystem:
                     pygame.Rect(700, 250, 30, 30),
                     pygame.Rect(850, 550, 30, 30)
                 ],
+                "energias_escuras": [
+                    pygame.Rect(250, 300, 25, 25),
+                    pygame.Rect(450, 450, 25, 25),
+                    pygame.Rect(650, 200, 25, 25),
+                    pygame.Rect(800, 500, 25, 25)
+                ],
                 "saida": pygame.Rect(1400, 200, 120, 120)
             },
             "mapa3": {
@@ -112,6 +124,12 @@ class MapSystem:
                     pygame.Rect(150, 350, 30, 30),
                     pygame.Rect(800, 400, 30, 30)
                 ],
+                "energias_escuras": [
+                    pygame.Rect(350, 200, 25, 25),
+                    pygame.Rect(500, 350, 25, 25),
+                    pygame.Rect(700, 280, 25, 25),
+                    pygame.Rect(300, 450, 25, 25)
+                ],
                 "saida": pygame.Rect(1500, 50, 100, 80)
             },
             "mapa4": {
@@ -144,6 +162,11 @@ class MapSystem:
                     pygame.Rect(450, 450, 30, 30),
                     pygame.Rect(650, 150, 30, 30),
                     pygame.Rect(150, 350, 30, 30)
+                ],
+                "energias_escuras": [
+                    pygame.Rect(400, 300, 25, 25),
+                    pygame.Rect(600, 200, 25, 25),
+                    pygame.Rect(800, 400, 25, 25)
                 ],
                 "saida": pygame.Rect(1500, 50, 100, 80)
             },
@@ -178,6 +201,12 @@ class MapSystem:
                     pygame.Rect(650, 150, 30, 30),
                     pygame.Rect(150, 350, 30, 30)
                 ],
+                "energias_escuras": [
+                    pygame.Rect(350, 250, 25, 25),
+                    pygame.Rect(550, 350, 25, 25),
+                    pygame.Rect(750, 150, 25, 25),
+                    pygame.Rect(450, 450, 25, 25)
+                ],
                 "saida": pygame.Rect(1500, 50, 100, 80)
             },
             "mapa6": {
@@ -210,6 +239,12 @@ class MapSystem:
                     pygame.Rect(450, 450, 30, 30),
                     pygame.Rect(650, 150, 30, 30),
                     pygame.Rect(150, 350, 30, 30)
+                ],
+                "energias_escuras": [
+                    pygame.Rect(300, 200, 25, 25),
+                    pygame.Rect(500, 300, 25, 25),
+                    pygame.Rect(700, 400, 25, 25),
+                    pygame.Rect(400, 500, 25, 25)
                 ],
                 "saida": pygame.Rect(1500, 50, 100, 80)
             }
@@ -335,3 +370,12 @@ class MapSystem:
                 font = pygame.font.SysFont(None, 24)
                 text = font.render("Porta", True, BRANCO)
                 tela.blit(text, (porta["rect"].x + 10, porta["rect"].y + 40))
+
+    def desenhar_energias_escuras(self, tela):
+        """Desenha as energias escuras do mapa atual"""
+        mapa_data = self.get_mapa_atual()
+        for energia in mapa_data["energias_escuras"]:
+            # Desenha um círculo roxo escuro com brilho
+            pygame.draw.circle(tela, ENERGIA_ESCURA, energia.center, energia.width // 2)
+            pygame.draw.circle(tela, (150, 50, 200), energia.center, energia.width // 3)
+            pygame.draw.circle(tela, (200, 100, 255), energia.center, energia.width // 6)

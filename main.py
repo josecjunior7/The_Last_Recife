@@ -27,6 +27,8 @@ enemy_group = map_system.criar_inimigos_para_mapa(map_system.mapa_atual)
 # Variáveis do jogo
 vida = 100
 oxigenio = 100
+energia_coletada = 0
+energia_total = sum(len(mapa["energias_escuras"]) for mapa in map_system.maps.values())
 
 # Invencibilidade
 INVENCIBILIDADE = 1000
@@ -108,6 +110,19 @@ while rodando:
         if bolha in mapa_atual_data["bolhas"]:
             mapa_atual_data["bolhas"].remove(bolha)
 
+    # Colisão com energias escuras
+    energias_para_remover = []
+    for energia in mapa_atual_data["energias_escuras"]:
+        if player.rect.colliderect(energia):
+            energia_coletada += 1
+            energias_para_remover.append(energia)
+            print(f"⚡ Energia escura coletada! Total: {energia_coletada}/{energia_total}")
+
+    # Remove energias coletadas
+    for energia in energias_para_remover:
+        if energia in mapa_atual_data["energias_escuras"]:
+            mapa_atual_data["energias_escuras"].remove(energia)
+
     # Colisão com portas (troca de mapa)
     for porta in mapa_atual_data["portas"]:
         if porta["ativa"] and player.rect.colliderect(porta["rect"]):
@@ -124,6 +139,11 @@ while rodando:
         print("Você encontrou a saída! Vitória!")
         rodando = False
 
+    # Verificar vitória por coleta completa de energia
+    if energia_coletada >= energia_total:
+        print("🎉 Você coletou toda a energia escura! Oceano limpo!")
+        rodando = False
+
     # --- DESENHAR ELEMENTOS ---
     
     # Desenhar portas primeiro (para ficarem atrás dos sprites)
@@ -134,6 +154,13 @@ while rodando:
         pygame.draw.circle(TELA, CIANO, bolha.center, bolha.width // 3)
         # Efeito visual para bolhas
         pygame.draw.circle(TELA, BRANCO, bolha.center, bolha.width // 4)
+    
+    # Desenhar energias escuras
+    for energia in mapa_atual_data["energias_escuras"]:
+        # Desenha um círculo roxo escuro com brilho
+        pygame.draw.circle(TELA, ENERGIA_ESCURA, energia.center, energia.width // 2)
+        pygame.draw.circle(TELA, (150, 50, 200), energia.center, energia.width // 3)
+        pygame.draw.circle(TELA, (200, 100, 255), energia.center, energia.width // 6)
     
     # Desenhar saída se existir
     if "saida" in mapa_atual_data:
@@ -151,7 +178,7 @@ while rodando:
     # Barra de oxigênio
     pygame.draw.rect(TELA, CINZA, (10, 10, 204, 24), 2)  # Borda
     pygame.draw.rect(TELA, PRETO, (12, 12, 200, 20))     # Fundo
-    cor_oxigenio = CIANO if oxigenio > 30 else VERDE   # Muda cor se estiver baixo
+    cor_oxigenio = CIANO if oxigenio > 30 else VERMELHO   # Muda cor se estiver baixo
     pygame.draw.rect(TELA, cor_oxigenio, (12, 12, int(2 * oxigenio), 20))
     
     # Texto oxigênio
@@ -168,6 +195,10 @@ while rodando:
     # Texto vida
     texto_vida = font_ui.render("Vida", True, BRANCO)
     TELA.blit(texto_vida, (15, 42))
+
+    # Contador de energia escura
+    texto_energia = font_ui.render(f"Energia: {energia_coletada}/{energia_total}", True, ENERGIA_ESCURA)
+    TELA.blit(texto_energia, (10, 70))
 
     # Nome do mapa atual
     font_mapa = pygame.font.SysFont(None, 28)
@@ -187,6 +218,17 @@ while rodando:
     texto_instrucoes = font_ui.render("WASD: Mover | ESC: Sair", True, BRANCO)
     TELA.blit(texto_instrucoes, (LARGURA - 200, ALTURA - 30))
 
+    # Mostrar mensagem de vitória se coletou toda energia
+    if energia_coletada >= energia_total:
+        font_vitoria = pygame.font.SysFont(None, 48)
+        texto_vitoria = font_vitoria.render("OCEANO LIMPO! VITÓRIA!", True, VERDE)
+        TELA.blit(texto_vitoria, (LARGURA // 2 - 180, ALTURA // 2 - 24))
+
     pygame.display.update()
+
+    # Pausa breve para mostrar a vitória antes de sair
+    if energia_coletada >= energia_total:
+        pygame.time.wait(3000)
+        rodando = False
 
 pygame.quit()
