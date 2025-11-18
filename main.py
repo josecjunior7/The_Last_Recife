@@ -5,7 +5,7 @@ from config import *
 from src.entities.player import Player
 from src.entities.enemy import Enemy
 from src.scenes.maps import MapSystem
-from src.scenes.menu import menu
+from src.scenes.menu import menu, selecao_personagem
 
 # Inicializa pygame
 pygame.init()
@@ -14,11 +14,28 @@ pygame.init()
 map_system = MapSystem()
 map_system.carregar_backgrounds()
 
-# Chama o menu
-escolha = menu(TELA, clock)
+# Chama o menu principal
+escolha_menu = menu(TELA, clock)
 
-# Cria o jogador e o grupo
-player = Player(100, 300)
+# Se escolheu jogar, vai para seleção de personagem
+if escolha_menu == "selecao_personagem":
+    personagem_escolhido = selecao_personagem(TELA, clock)
+    
+    if personagem_escolhido is None:
+        # Usuário voltou ao menu ou fechou a janela
+        pygame.quit()
+        exit()
+else:
+    pygame.quit()
+    exit()
+
+# Cria o jogador com o personagem escolhido
+player = Player(100, 300, personagem_escolhido)
+player_group = pygame.sprite.Group(player)
+
+print(f"🎮 Personagem selecionado: {personagem_escolhido}")
+
+# Resto do código permanece igual...
 player_group = pygame.sprite.Group(player)
 
 # Grupo para inimigos e criar inimigos do mapa inicial
@@ -31,7 +48,7 @@ energia_coletada = 0
 energia_total = sum(len(mapa["energias_escuras"]) for mapa in map_system.maps.values())
 
 # Invencibilidade
-INVENCIBILIDADE = 3000
+INVENCIBILIDADE = 1000
 ultimo_dano = 0
 
 # Função para trocar mapa e recriar inimigos
@@ -81,7 +98,7 @@ while rodando:
     enemy_group.update(LARGURA, ALTURA)
 
     # Diminuir oxigênio
-    oxigenio -= 0.1
+    oxigenio -= 0.05
     if oxigenio <= 0:
         print("Você ficou sem ar! Game Over.")
         rodando = False

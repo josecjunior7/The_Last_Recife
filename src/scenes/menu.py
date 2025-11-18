@@ -70,36 +70,74 @@ def menu(tela, clock):
 
 # --- FUNÇÃO DE SELEÇÃO DE PERSONAGEM ---
 def selecao_personagem(tela, clock):
-    # Carregar imagens dos personagens (você precisará criar essas imagens)
+    # Carregar background para seleção de personagem
     try:
-        img_masculino = pygame.image.load("assets/images/personagem_masculino.png").convert_alpha()
-        img_feminino = pygame.image.load("assets/images/personagem_feminino.png").convert_alpha()
+        background_selecao = pygame.image.load("assets/images/backgrounds.png").convert()
+        background_selecao = pygame.transform.scale(background_selecao, (LARGURA, ALTURA))
+        print("✅ Background de seleção carregado com sucesso!")
     except:
-        # Fallback: criar retângulos coloridos se as imagens não existirem
+        # Fallback: fundo azul escuro se a imagem não existir
+        background_selecao = pygame.Surface((LARGURA, ALTURA))
+        background_selecao.fill((0, 0, 50))
+        print("⚠️ Background de seleção não encontrado. Usando fallback.")
+
+    # Carregar imagem do texto "ESCOLHA O SEU PERSONAGEM"
+    try:
+        img_texto_escolha = pygame.image.load("assets/images/textchoise.png").convert_alpha()
+        # Redimensionar mantendo proporção
+        largura_original, altura_original = img_texto_escolha.get_size()
+        nova_largura = int(largura_original * 0.4)  # Ajuste a escala conforme necessário
+        nova_altura = int(altura_original * 0.4)
+        img_texto_escolha = pygame.transform.scale(img_texto_escolha, (nova_largura, nova_altura))
+        print("✅ Texto de escolha carregado com sucesso!")
+    except:
+        img_texto_escolha = None
+        print("⚠️ Texto de escolha não encontrado. Usando texto renderizado.")
+
+    # Carregar imagens dos personagens
+    try:
+        img_masculino = pygame.image.load("assets/images/escolha/aelyon.png").convert_alpha()
+        img_masculino = pygame.transform.scale(img_masculino, (150, 300))
+        print("✅ Personagem masculino carregado com sucesso!")
+    except:
+        # Fallback: criar retângulo azul
         img_masculino = pygame.Surface((200, 300))
-        img_masculino.fill(AZUL)
+        img_masculino.fill((30, 144, 255))
+        # Adicionar detalhes visuais
+        pygame.draw.rect(img_masculino, (110, 130, 180), (50, 50, 100, 200))
+        pygame.draw.circle(img_masculino, (100, 149, 237), (100, 80), 30)
+        print("⚠️ Personagem masculino não encontrado. Usando fallback.")
+
+    try:
+        img_feminino = pygame.image.load("assets/images/escolha/thalic.png").convert_alpha()
+        img_feminino = pygame.transform.scale(img_feminino, (200, 300))
+        print("✅ Personagem feminino carregado com sucesso!")
+    except:
+        # Fallback: criar retângulo rosa
         img_feminino = pygame.Surface((200, 300))
-        img_feminino.fill(ROSA)
+        img_feminino.fill((255, 182, 193))
+        # Adicionar detalhes visuais
+        pygame.draw.rect(img_feminino, (219, 112, 147), (50, 50, 100, 200))
+        pygame.draw.circle(img_feminino, (199, 21, 133), (100, 80), 30)
+        print("⚠️ Personagem feminino não encontrado. Usando fallback.")
 
-    # Redimensionar imagens
-    img_masculino = pygame.transform.scale(img_masculino, (200, 300))
-    img_feminino = pygame.transform.scale(img_feminino, (200, 300))
+    # Posições dos elementos
+    pos_texto = (LARGURA // 2, 150)  # Centro horizontal, 150px do topo
+    pos_masculino = (LARGURA // 4 - 100, ALTURA // 2 - 100)
+    pos_feminino = (3 * LARGURA // 4 - 100, ALTURA // 2 - 100)
 
-    # Posições dos personagens
-    pos_masculino = (LARGURA // 4 - 100, ALTURA // 2 - 150)
-    pos_feminino = (3 * LARGURA // 4 - 100, ALTURA // 2 - 150)
-
-    # Textos
+    # Textos de fallback (se a imagem não carregar)
     font_titulo = pygame.font.SysFont(None, 48)
     font_opcoes = pygame.font.SysFont(None, 36)
     
-    titulo = font_titulo.render("SELECIONE SEU PERSONAGEM", True, BRANCO)
+    titulo_fallback = font_titulo.render("ESCOLHA O SEU PERSONAGEM", True, BRANCO)
     texto_masculino = font_opcoes.render("MASCULINO", True, BRANCO)
     texto_feminino = font_opcoes.render("FEMININO", True, BRANCO)
 
     rodando = True
     while rodando:
-        tela.fill((0, 0, 50))  # Fundo azul escuro
+        # Desenhar background
+        tela.blit(background_selecao, (0, 0))
 
         # --- EVENTOS ---
         for evento in pygame.event.get():
@@ -119,32 +157,47 @@ def selecao_personagem(tela, clock):
         rect_feminino = pygame.Rect(pos_feminino[0], pos_feminino[1], 200, 300)
 
         # --- DESENHAR ELEMENTOS ---
-        # Título
-        tela.blit(titulo, (LARGURA // 2 - titulo.get_width() // 2, 100))
+        
+        # Texto "ESCOLHA O SEU PERSONAGEM"
+        if img_texto_escolha:
+            # Centralizar a imagem do texto
+            texto_rect = img_texto_escolha.get_rect(center=(LARGURA // 2, 150))
+            tela.blit(img_texto_escolha, texto_rect)
+        else:
+            # Fallback: texto renderizado
+            tela.blit(titulo_fallback, (LARGURA // 2 - titulo_fallback.get_width() // 2, 120))
 
         # Personagens com borda de seleção
         cor_borda_masculino = VERDE if rect_masculino.collidepoint(mouse) else BRANCO
         cor_borda_feminino = VERDE if rect_feminino.collidepoint(mouse) else BRANCO
         
-        pygame.draw.rect(tela, cor_borda_masculino, rect_masculino, 3)
-        pygame.draw.rect(tela, cor_borda_feminino, rect_feminino, 3)
+        # Desenhar bordas
+        pygame.draw.rect(tela, cor_borda_masculino, rect_masculino, 4)
+        pygame.draw.rect(tela, cor_borda_feminino, rect_feminino, 4)
         
+        # Desenhar personagens
         tela.blit(img_masculino, pos_masculino)
         tela.blit(img_feminino, pos_feminino)
 
         # Textos abaixo dos personagens
-        tela.blit(texto_masculino, (pos_masculino[0] + 60, pos_masculino[1] + 320))
+        tela.blit(texto_masculino, (pos_masculino[0] + 50, pos_masculino[1] + 320))
         tela.blit(texto_feminino, (pos_feminino[0] + 60, pos_feminino[1] + 320))
 
         # Instrução
         texto_instrucao = font_opcoes.render("Clique em um personagem para selecionar", True, BRANCO)
-        tela.blit(texto_instrucao, (LARGURA // 2 - texto_instrucao.get_width() // 2, ALTURA - 100))
+        tela.blit(texto_instrucao, (LARGURA // 2 - texto_instrucao.get_width() // 2, ALTURA - 80))
+        
+        # Instrução de voltar
+        texto_voltar = font_opcoes.render("ESC: Voltar ao menu", True, CINZA)
+        tela.blit(texto_voltar, (LARGURA // 2 - texto_voltar.get_width() // 2, ALTURA - 40))
 
         # --- CLIQUES ---
         if rect_masculino.collidepoint(mouse) and clique[0]:
+            print("🎮 Personagem masculino selecionado!")
             return "masculino"
 
         if rect_feminino.collidepoint(mouse) and clique[0]:
+            print("🎮 Personagem feminino selecionado!")
             return "feminino"
 
         pygame.display.flip()
