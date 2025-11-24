@@ -17,8 +17,8 @@ class Player(pygame.sprite.Sprite):
     def carregar_sprites(self):
         # Define os nomes dos sprites baseado no personagem escolhido
         if self.personagem == "feminino":
-            nomes = ["aelyon_femSP1.jpeg", "aelyon_femSP2.jpeg", "aelyon_femSP3.jpeg", "aelyon_femSP4.jpeg"]
-            caminho_base = os.path.join("assets", "images", "sprites", "feminino")
+            nomes = ["thalic1.png", "thalic2.png", "thalic3.png", "thalic4.png", "thalic5.png"]
+            caminho_base = os.path.join("assets", "images", "sprites", "move")
         else:  # masculino (padrão)
             nomes = ["aelyonSP1.jpeg", "aelyonSP2.jpeg", "aelyonSP3.jpeg", "aelyonSP4.jpeg"]
             caminho_base = os.path.join("assets", "images", "sprites", "move")
