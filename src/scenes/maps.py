@@ -18,7 +18,7 @@ class MapSystem:
                         "ativa": True
                     }
                 ],
-                "tipos_inimigos": ["gyarados", "gyarados", "golisopod", "golisopod", "gyarados", "golisopod"],
+                "tipos_inimigos": ["golisopod", "golisopod", "golisopod","gyarados" ],
                 "inimigos": [
                      {"x": 300, "y": 200},
                      {"x": 500, "y": 400},
@@ -55,7 +55,7 @@ class MapSystem:
                         "ativa": True
                     }
                 ],
-                "tipos_inimigos": ["golisopod", "elektross", "golisopod", "elektross", "golisopod", "elektross"],
+                "tipos_inimigos": ["gyarados", "gyarados", "gyarados", "gyarados", "gyarados", "gyarados"],
                 "inimigos": [
                     {"x": 200, "y": 300},
                     {"x": 450, "y": 200},
@@ -126,7 +126,7 @@ class MapSystem:
                         "ativa": True
                     }
                 ],
-                "tipos_inimigos": ["sharpedo", "sharpedo", "elektross", "sharpedo"],
+                "tipos_inimigos": ["sharpedo", "sharpedo", "sharpedo", "sharpedo","sharpedo","sharpedo"],
                 "inimigos": [
                     {"x": 100, "y": 200},
                     {"x": 300, "y": 400},
@@ -158,7 +158,7 @@ class MapSystem:
                         "ativa": True
                     }
                 ],
-                "tipos_inimigos": ["elektross", "sharpedo", "golisopod", "elektross"],
+                "tipos_inimigos": ["elektross", "elektross", "elektross", "elektross","elektross"],
                 "inimigos": [
                     {"x": 100, "y": 200},
                     {"x": 300, "y": 400},
