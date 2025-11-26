@@ -1,8 +1,8 @@
 import pygame
 import random
 import os
-import math  # ADICIONAR ESTE IMPORT
-import sys   # ADICIONAR ESTE IMPORT
+import math
+import sys
 from config import *
 from src.entities.player import Player
 from src.entities.enemy import Enemy
@@ -57,8 +57,8 @@ def carregar_sprites():
     
     try:
         # Sprite da energia escura
-        sprites['energia_escura'] = pygame.image.load("assets/images/energia_escura.png").convert_alpha()
-        sprites['energia_escura'] = pygame.transform.scale(sprites['energia_escura'], (30, 30))
+        sprites['energia_escura'] = pygame.image.load("assets/images/cristais/cristalpreto.png").convert_alpha()
+        sprites['energia_escura'] = pygame.transform.scale(sprites['energia_escura'], (100, 100))
     except:
         print("⚠️ Sprite da energia escura não encontrado. Usando fallback.")
         sprites['energia_escura'] = pygame.Surface((30, 30), pygame.SRCALPHA)
@@ -84,7 +84,7 @@ def carregar_sprites():
 def tela_vitoria(tela, clock, personagem, estatisticas):
     """Tela de vitória quando todas as energias são coletadas"""
     try:
-        background_vitoria = pygame.image.load("assets/images/vitoria_bg.png").convert()
+        background_vitoria = pygame.image.load("assets/images/backgrounds.png").convert()
         background_vitoria = pygame.transform.scale(background_vitoria, (LARGURA, ALTURA))
     except:
         # Fallback: gradiente azul
@@ -141,42 +141,63 @@ def tela_vitoria(tela, clock, personagem, estatisticas):
 
         # Mensagem de parabéns
         texto_parabens = font_subtitulo.render("Parabéns! Você salvou os oceanos!", True, BRANCO)
-        tela.blit(texto_parabens, (LARGURA//2 - texto_parabens.get_width()//2, 200))
+        texto_parabens_rect = texto_parabens.get_rect(center=(LARGURA//2, 200))
+        superficie_alpha.blit(texto_parabens, texto_parabens_rect)
 
         # Caixa de estatísticas
         caixa_rect = pygame.Rect(LARGURA//2 - 200, 260, 400, 300)
         pygame.draw.rect(superficie_alpha, (0, 0, 0, 180), caixa_rect, border_radius=20)
         pygame.draw.rect(superficie_alpha, DOURADO, caixa_rect, 3, border_radius=20)
 
+        # === LAYOUT ORGANIZADO DENTRO DA CAIXA ===
+        y_pos = caixa_rect.y + 30
+
         # Personagem
         nome_personagem = "AELYON" if personagem == "masculino" else "THALIC"
         texto_personagem = font_texto.render(f"Personagem: {nome_personagem}", True, VERDE_CLARO)
-        tela.blit(texto_personagem, (LARGURA//2 - texto_personagem.get_width()//2, 290))
+        personagem_rect = texto_personagem.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_personagem, personagem_rect)
+        y_pos += 40
+
+        # Linha separadora
+        pygame.draw.line(superficie_alpha, CINZA, (caixa_rect.x + 50, y_pos), (caixa_rect.x + 350, y_pos), 1)
+        y_pos += 20
 
         # Estatísticas de coleta
         texto_bolhas = font_texto.render(f"Bolhas coletadas: {bolhas_coletadas}/{total_bolhas}", True, CIANO)
-        texto_energias = font_texto.render(f"Energias escuras: {energias_coletadas}/{total_energias}", True, ROXO)
-        
+        bolhas_rect = texto_bolhas.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_bolhas, bolhas_rect)
+        y_pos += 35
+
         # Calcular porcentagens
         perc_bolhas = (bolhas_coletadas / total_bolhas) * 100 if total_bolhas > 0 else 0
-        perc_energias = (energias_coletadas / total_energias) * 100 if total_energias > 0 else 0
-        
         texto_perc_bolhas = font_info.render(f"({perc_bolhas:.1f}% das bolhas)", True, CIANO_CLARO)
+        perc_bolhas_rect = texto_perc_bolhas.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_perc_bolhas, perc_bolhas_rect)
+        y_pos += 40
+
+        texto_energias = font_texto.render(f"Energias escuras: {energias_coletadas}/{total_energias}", True, ROXO)
+        energias_rect = texto_energias.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_energias, energias_rect)
+        y_pos += 35
+
+        perc_energias = (energias_coletadas / total_energias) * 100 if total_energias > 0 else 0
         texto_perc_energias = font_info.render(f"({perc_energias:.1f}% das energias)", True, ROXO_CLARO)
+        perc_energias_rect = texto_perc_energias.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_perc_energias, perc_energias_rect)
+        y_pos += 40
+
+        # Linha separadora
+        pygame.draw.line(superficie_alpha, CINZA, (caixa_rect.x + 50, y_pos), (caixa_rect.x + 350, y_pos), 1)
+        y_pos += 20
 
         # Tempo total
         minutos = tempo_total // 60000
         segundos = (tempo_total % 60000) // 1000
         texto_tempo = font_texto.render(f"Tempo total: {minutos:02d}:{segundos:02d}", True, BRANCO)
-
-        # Posicionar textos
-        tela.blit(texto_bolhas, (LARGURA//2 - texto_bolhas.get_width()//2, 330))
-        tela.blit(texto_perc_bolhas, (LARGURA//2 - texto_perc_bolhas.get_width()//2, 360))
-        
-        tela.blit(texto_energias, (LARGURA//2 - texto_energias.get_width()//2, 400))
-        tela.blit(texto_perc_energias, (LARGURA//2 - texto_perc_energias.get_width()//2, 430))
-        
-        tela.blit(texto_tempo, (LARGURA//2 - texto_tempo.get_width()//2, 470))
+        tempo_rect = texto_tempo.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_tempo, tempo_rect)
+        y_pos += 40
 
         # Mensagem de avaliação
         if perc_energias == 100 and perc_bolhas >= 80:
@@ -193,14 +214,16 @@ def tela_vitoria(tela, clock, personagem, estatisticas):
             cor_avaliacao = BRANCO
 
         texto_avaliacao = font_subtitulo.render(avaliacao, True, cor_avaliacao)
-        tela.blit(texto_avaliacao, (LARGURA//2 - texto_avaliacao.get_width()//2, 520))
+        avaliacao_rect = texto_avaliacao.get_rect(center=(LARGURA//2, 580))
+        superficie_alpha.blit(texto_avaliacao, avaliacao_rect)
 
         # Instrução para continuar
         if tempo_decorrido > 2000:
             piscar = (tempo_decorrido // 500) % 2
             if piscar:
                 texto_continuar = font_info.render("Pressione ESPAÇO para voltar ao menu", True, BRANCO)
-                tela.blit(texto_continuar, (LARGURA//2 - texto_continuar.get_width()//2, ALTURA - 80))
+                continuar_rect = texto_continuar.get_rect(center=(LARGURA//2, ALTURA - 60))
+                superficie_alpha.blit(texto_continuar, continuar_rect)
 
         # Aplicar alpha
         superficie_alpha.set_alpha(alpha)
@@ -220,8 +243,9 @@ def tela_vitoria(tela, clock, personagem, estatisticas):
 
 def tela_gameover(tela, clock, personagem, estatisticas, motivo):
     """Tela de game over quando o jogador morre"""
+    
     try:
-        background_gameover = pygame.image.load("assets/images/gameover_bg.png").convert()
+        background_gameover = pygame.image.load("assets/images/backgrounds.png").convert()
         background_gameover = pygame.transform.scale(background_gameover, (LARGURA, ALTURA))
     except:
         # Fallback: gradiente vermelho
@@ -230,7 +254,21 @@ def tela_gameover(tela, clock, personagem, estatisticas, motivo):
             cor = (max(0, 100 - i//20), max(0, 20 - i//30), max(0, 20 - i//30))
             pygame.draw.line(background_gameover, cor, (0, i), (LARGURA, i))
 
-    font_titulo = pygame.font.SysFont("arial", 72, bold=True)
+    # CARREGAR IMAGEM DO TÍTULO GAME OVER
+    try:
+        titulo_gameover = pygame.image.load("assets/images/gameover_transparent.png").convert_alpha()
+        # Redimensionar se necessário
+        titulo_gameover = pygame.transform.scale(titulo_gameover, (400, 300))
+    except:
+        # Fallback: criar título programaticamente
+        titulo_gameover = pygame.Surface((400, 100), pygame.SRCALPHA)
+        pygame.draw.rect(titulo_gameover, (0, 0, 0, 180), (0, 0, 400, 100), border_radius=20)
+        pygame.draw.rect(titulo_gameover, VERMELHO, (0, 0, 400, 100), 3, border_radius=20)
+        font_titulo_fallback = pygame.font.SysFont("arial", 72, bold=True)
+        texto_fallback = font_titulo_fallback.render("GAME OVER", True, VERMELHO)
+        texto_rect = texto_fallback.get_rect(center=(200, 50))
+        titulo_gameover.blit(texto_fallback, texto_rect)
+
     font_subtitulo = pygame.font.SysFont("arial", 36)
     font_texto = pygame.font.SysFont("arial", 28)
     font_info = pygame.font.SysFont("arial", 24)
@@ -261,20 +299,24 @@ def tela_gameover(tela, clock, personagem, estatisticas, motivo):
         # Superfície para efeito de transparência
         superficie_alpha = pygame.Surface((LARGURA, ALTURA), pygame.SRCALPHA)
 
-        # Título de game over
-        texto_gameover = font_titulo.render("GAME OVER", True, VERMELHO)
-        texto_gameover_rect = texto_gameover.get_rect(center=(LARGURA//2, 120))
+        # USAR IMAGEM DO TÍTULO GAME OVER
+        titulo_rect = titulo_gameover.get_rect(center=(LARGURA//2, 120))
         
-        # Caixa do título
-        pygame.draw.rect(superficie_alpha, (0, 0, 0, 180), 
-                        (texto_gameover_rect.x - 30, texto_gameover_rect.y - 20,
-                         texto_gameover_rect.width + 60, texto_gameover_rect.height + 40),
-                        border_radius=20)
-        pygame.draw.rect(superficie_alpha, VERMELHO, 
-                        (texto_gameover_rect.x - 30, texto_gameover_rect.y - 20,
-                         texto_gameover_rect.width + 60, texto_gameover_rect.height + 40),
-                        3, border_radius=20)
-        superficie_alpha.blit(texto_gameover, texto_gameover_rect)
+        # Caixa do título (opcional - para destacar mais)
+        pygame.draw.rect(superficie_alpha, (0, 0, 0, 120), 
+                        (titulo_rect.x - 20, titulo_rect.y - 10,
+                         titulo_rect.width + 40, titulo_rect.height + 20),
+                        border_radius=25)
+        
+        # Aplicar efeito de pulsação no título
+        pulsacao = 1.0 + 0.1 * math.sin(tempo_decorrido * 0.01)  # Efeito sutil de pulsação
+        titulo_pulsante = pygame.transform.scale(
+            titulo_gameover, 
+            (int(titulo_rect.width * pulsacao), int(titulo_rect.height * pulsacao))
+        )
+        titulo_pulsante_rect = titulo_pulsante.get_rect(center=(LARGURA//2, 120))
+        
+        superficie_alpha.blit(titulo_pulsante, titulo_pulsante_rect)
 
         # Motivo da morte
         if motivo == "vida":
@@ -284,42 +326,63 @@ def tela_gameover(tela, clock, personagem, estatisticas, motivo):
         else:
             texto_motivo = font_subtitulo.render("Missão fracassada!", True, VERMELHO)
         
-        tela.blit(texto_motivo, (LARGURA//2 - texto_motivo.get_width()//2, 200))
+        motivo_rect = texto_motivo.get_rect(center=(LARGURA//2, 200))
+        superficie_alpha.blit(texto_motivo, motivo_rect)
 
-        # Caixa de estatísticas
-        caixa_rect = pygame.Rect(LARGURA//2 - 200, 260, 400, 280)
+        # Caixa de estatísticas - AUMENTADA para caber todos os textos
+        caixa_rect = pygame.Rect(LARGURA//2 - 200, 240, 400, 320)  # Aumentei a altura
         pygame.draw.rect(superficie_alpha, (0, 0, 0, 180), caixa_rect, border_radius=20)
         pygame.draw.rect(superficie_alpha, VERMELHO, caixa_rect, 3, border_radius=20)
+
+        # === LAYOUT CORRIGIDO DENTRO DA CAIXA ===
+        y_pos = caixa_rect.y + 30  # Posição Y inicial dentro da caixa
 
         # Personagem
         nome_personagem = "AELYON" if personagem == "masculino" else "THALIC"
         texto_personagem = font_texto.render(f"Personagem: {nome_personagem}", True, BRANCO)
-        tela.blit(texto_personagem, (LARGURA//2 - texto_personagem.get_width()//2, 290))
+        personagem_rect = texto_personagem.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_personagem, personagem_rect)
+        y_pos += 40
 
-        # Estatísticas de coleta
+        # Linha separadora
+        pygame.draw.line(superficie_alpha, CINZA, (caixa_rect.x + 50, y_pos), (caixa_rect.x + 350, y_pos), 1)
+        y_pos += 20
+
+        # Estatísticas de coleta - CORRIGIDO
         texto_bolhas = font_texto.render(f"Bolhas coletadas: {bolhas_coletadas}/{total_bolhas}", True, CIANO)
-        texto_energias = font_texto.render(f"Energias escuras: {energias_coletadas}/{total_energias}", True, PRETO)
-        
+        bolhas_rect = texto_bolhas.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_bolhas, bolhas_rect)
+        y_pos += 35
+
         # Calcular porcentagens
         perc_bolhas = (bolhas_coletadas / total_bolhas) * 100 if total_bolhas > 0 else 0
+        texto_perc_bolhas = font_info.render(f"({perc_bolhas:.1f}% das bolhas)", True, CIANO_CLARO)
+        perc_bolhas_rect = texto_perc_bolhas.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_perc_bolhas, perc_bolhas_rect)
+        y_pos += 40
+
+        texto_energias = font_texto.render(f"Energias escuras: {energias_coletadas}/{total_energias}", True, ROXO)
+        energias_rect = texto_energias.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_energias, energias_rect)
+        y_pos += 35
+
         perc_energias = (energias_coletadas / total_energias) * 100 if total_energias > 0 else 0
-        
-        texto_perc_bolhas = font_info.render(f"({perc_bolhas:.1f}% das bolhas)", True, AZUL)
-        texto_perc_energias = font_info.render(f"({perc_energias:.1f}% das energias)", True, AZUL)
+        texto_perc_energias = font_info.render(f"({perc_energias:.1f}% das energias)", True, ROXO_CLARO)
+        perc_energias_rect = texto_perc_energias.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_perc_energias, perc_energias_rect)
+        y_pos += 40
+
+        # Linha separadora
+        pygame.draw.line(superficie_alpha, CINZA, (caixa_rect.x + 50, y_pos), (caixa_rect.x + 350, y_pos), 1)
+        y_pos += 20
 
         # Tempo total
         minutos = tempo_total // 60000
         segundos = (tempo_total % 60000) // 1000
         texto_tempo = font_texto.render(f"Tempo sobrevivido: {minutos:02d}:{segundos:02d}", True, BRANCO)
-
-        # Posicionar textos
-        tela.blit(texto_bolhas, (LARGURA//2 - texto_bolhas.get_width()//2, 330))
-        tela.blit(texto_perc_bolhas, (LARGURA//2 - texto_perc_bolhas.get_width()//2, 360))
-        
-        tela.blit(texto_energias, (LARGURA//2 - texto_energias.get_width()//2, 400))
-        tela.blit(texto_perc_energias, (LARGURA//2 - texto_perc_energias.get_width()//2, 430))
-        
-        tela.blit(texto_tempo, (LARGURA//2 - texto_tempo.get_width()//2, 470))
+        tempo_rect = texto_tempo.get_rect(center=(LARGURA//2, y_pos))
+        superficie_alpha.blit(texto_tempo, tempo_rect)
+        y_pos += 40
 
         # Mensagem de encorajamento
         if perc_energias >= 50:
@@ -330,14 +393,16 @@ def tela_gameover(tela, clock, personagem, estatisticas, motivo):
             mensagem = "Não desista! Cada tentativa é um aprendizado!"
         
         texto_mensagem = font_subtitulo.render(mensagem, True, AMARELO)
-        tela.blit(texto_mensagem, (LARGURA//2 - texto_mensagem.get_width()//2, 520))
+        mensagem_rect = texto_mensagem.get_rect(center=(LARGURA//2, 580))  # Posição fixa abaixo da caixa
+        superficie_alpha.blit(texto_mensagem, mensagem_rect)
 
         # Instrução para continuar
         if tempo_decorrido > 2000:
             piscar = (tempo_decorrido // 500) % 2
             if piscar:
                 texto_continuar = font_info.render("Pressione ESPAÇO para tentar novamente", True, BRANCO)
-                tela.blit(texto_continuar, (LARGURA//2 - texto_continuar.get_width()//2, ALTURA - 80))
+                continuar_rect = texto_continuar.get_rect(center=(LARGURA//2, ALTURA - 60))
+                superficie_alpha.blit(texto_continuar, continuar_rect)
 
         # Aplicar alpha
         superficie_alpha.set_alpha(alpha)
@@ -430,19 +495,22 @@ def transicao_fase(tela, clock, numero_fase, personagem):
         # Texto da descrição
         for i, linha in enumerate(linhas_descricao):
             texto_linha = font_texto.render(linha, True, BRANCO)
-            tela.blit(texto_linha, (LARGURA//2 - texto_linha.get_width()//2, 270 + i * 40))
+            texto_linha_rect = texto_linha.get_rect(center=(LARGURA//2, 270 + i * 40))
+            superficie_alpha.blit(texto_linha, texto_linha_rect)
         
         # Personagem selecionado
         nome_personagem = "AELYON" if personagem == "masculino" else "THALIC"
         texto_personagem = font_texto.render(f"Personagem: {nome_personagem}", True, BRANCO)
-        tela.blit(texto_personagem, (LARGURA//2 - texto_personagem.get_width()//2, 350 + len(linhas_descricao) * 40))
+        personagem_rect = texto_personagem.get_rect(center=(LARGURA//2, 350 + len(linhas_descricao) * 40))
+        superficie_alpha.blit(texto_personagem, personagem_rect)
         
         # Instrução para continuar
         if tempo_decorrido > 1500:  # Mostrar instrução após 1.5 segundos
             piscar = (tempo_decorrido // 500) % 2  # Piscar a cada 500ms
             if piscar:
                 texto_continuar = font_instrucao.render("Pressione ESPAÇO para continuar...", True, BRANCO)
-                tela.blit(texto_continuar, (LARGURA//2 - texto_continuar.get_width()//2, ALTURA - 100))
+                continuar_rect = texto_continuar.get_rect(center=(LARGURA//2, ALTURA - 100))
+                superficie_alpha.blit(texto_continuar, continuar_rect)
         
         # Aplicar alpha
         superficie_alpha.set_alpha(alpha)
@@ -569,7 +637,7 @@ else:
 
 # Mostra transição para a primeira fase
 fase_atual = 1
-transicao_fase(TELA, clock, fase_atual, personagem_escolhido)
+proximo_mapa = transicao_fase(TELA, clock, fase_atual, personagem_escolhido)
 
 # Cria o jogador com o personagem escolhido
 player = Player(100, 300, personagem_escolhido)
@@ -678,8 +746,22 @@ while rodando:
             'total_energias': total_energias_jogo,
             'tempo_total': tempo_total
         }
-        tela_gameover(TELA, clock, personagem_escolhido, estatisticas, "oxigenio")
-        rodando = False
+        resultado = tela_gameover(TELA, clock, personagem_escolhido, estatisticas, "oxigenio")
+        if resultado == "reiniciar":
+            # Reiniciar o jogo
+            vida = 100
+            oxigenio = 100
+            energia_coletada = 0
+            bolhas_coletadas_total = 0
+            energias_coletadas_total = 0
+            tempo_inicio_jogo = pygame.time.get_ticks()
+            # Reposicionar player e recriar inimigos
+            player.rect.x = 100
+            player.rect.y = 300
+            enemy_group.empty()
+            enemy_group.add(map_system.criar_inimigos_para_mapa(map_system.mapa_atual))
+        else:
+            rodando = False
 
     # Colisão com inimigos
     colisoes = pygame.sprite.spritecollide(player, enemy_group, False)
@@ -697,8 +779,22 @@ while rodando:
                 'total_energias': total_energias_jogo,
                 'tempo_total': tempo_total
             }
-            tela_gameover(TELA, clock, personagem_escolhido, estatisticas, "vida")
-            rodando = False
+            resultado = tela_gameover(TELA, clock, personagem_escolhido, estatisticas, "vida")
+            if resultado == "reiniciar":
+                # Reiniciar o jogo
+                vida = 100
+                oxigenio = 100
+                energia_coletada = 0
+                bolhas_coletadas_total = 0
+                energias_coletadas_total = 0
+                tempo_inicio_jogo = pygame.time.get_ticks()
+                # Reposicionar player e recriar inimigos
+                player.rect.x = 100
+                player.rect.y = 300
+                enemy_group.empty()
+                enemy_group.add(map_system.criar_inimigos_para_mapa(map_system.mapa_atual))
+            else:
+                rodando = False
 
     # Colisão com bolhas
     bolhas_para_remover = []
@@ -758,8 +854,12 @@ while rodando:
             'total_energias': total_energias_jogo,
             'tempo_total': tempo_total
         }
-        tela_vitoria(TELA, clock, personagem_escolhido, estatisticas)
-        rodando = False
+        resultado = tela_vitoria(TELA, clock, personagem_escolhido, estatisticas)
+        if resultado == "menu":
+            rodando = False
+        else:
+            # Continuar jogando ou reiniciar
+            pass
 
     # --- DESENHAR ELEMENTOS ---
     
