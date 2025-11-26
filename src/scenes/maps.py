@@ -7,7 +7,7 @@ class MapSystem:
     def __init__(self):
         self.maps = {
             "mapa1": {
-                "name": "Old Recife",
+                "name": "Velho Recife",
                 "background": "assets/images/mapas/mapa.png",
                 "player_start": (100, 300),
                 "portas": [
@@ -16,12 +16,6 @@ class MapSystem:
                         "destination": "mapa2",
                         "color": CIANO,
                         "ativa": True
-                    },
-                    {
-                        "rect": pygame.Rect(100, 38, 80, 100), 
-                        "destination": "mapa3",
-                        "color": CIANO,
-                        "ativa": False
                     }
                 ],
                 "tipos_inimigos": ["gyarados", "gyarados", "golisopod", "golisopod", "gyarados", "golisopod"],
@@ -54,12 +48,6 @@ class MapSystem:
                 "background": "assets/images/mapas/mapa2.png",
                 "player_start": (100, 100),
                 "portas": [
-                    {
-                        "rect": pygame.Rect(50, 250, 80, 100),
-                        "destination": "mapa1",
-                        "color": None,
-                        "ativa": False
-                    },
                     {
                         "rect": pygame.Rect(578, 650, 100, 50),
                         "destination": "mapa3",
@@ -101,12 +89,6 @@ class MapSystem:
                         "destination": "mapa4",
                         "color": None,
                         "ativa": True
-                    },
-                    {
-                        "rect": pygame.Rect(50, 250, 80, 100),
-                        "destination": "mapa2",
-                        "color": None,
-                        "ativa": False
                     }
                 ],
                 "tipos_inimigos": ["gyarados", "elektross", "sharpedo", "golisopod", "elektross"],
@@ -142,12 +124,6 @@ class MapSystem:
                         "destination": "mapa5",
                         "color": VERDE,
                         "ativa": True
-                    },
-                    {
-                        "rect": pygame.Rect(500, 100, 80, 100),
-                        "destination": "mapa1",
-                        "color": None,
-                        "ativa": False
                     }
                 ],
                 "tipos_inimigos": ["sharpedo", "sharpedo", "elektross", "sharpedo"],
@@ -180,12 +156,6 @@ class MapSystem:
                         "destination": "mapa6",
                         "color": None,
                         "ativa": True
-                    },
-                    {
-                        "rect": pygame.Rect(800, 300, 80, 100),
-                        "destination": "mapa4",
-                        "color": None,
-                        "ativa": False
                     }
                 ],
                 "tipos_inimigos": ["elektross", "sharpedo", "golisopod", "elektross"],
@@ -210,22 +180,11 @@ class MapSystem:
                 "saida": pygame.Rect(1500, 50, 100, 80)
             },
             "mapa6": {
-                "name": "Sala do rei",
+                "name": "Sala do Rei",
                 "background": "assets/images/mapas/mapa6.png",
                 "player_start": (400, 300),
                 "portas": [
-                    {
-                        "rect": pygame.Rect(100, 500, 80, 100),
-                        "destination": "mapa1",
-                        "color": None,
-                        "ativa": False
-                    },
-                    {
-                        "rect": pygame.Rect(570, 600, 80, 100),
-                        "destination": "mapa5",
-                        "color": None,
-                        "ativa": True
-                    }
+                    # Último mapa não tem portas para frente
                 ],
                 "tipos_inimigos": ["sharpedo", "elektross", "golisopod", "gyarados"],
                 "inimigos": [
